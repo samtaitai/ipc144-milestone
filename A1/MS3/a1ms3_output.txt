@@ -1,3 +1,4 @@
+Script started on Sun 03 Apr 2022 10:49:08 PM EDT
 Imported 20 patient records...
 Imported 15 appointment records...
 
@@ -490,14 +491,12 @@ Appointment Management
 ------------------------------
 0) Previous menu
 ------------------------------
-Selection: 1024
-ERROR! Value must be between 0 and 4 inclusive: 2027
-ERROR! Value must be between 0 and 4 inclusive: 3
+Selection: 4
 
-Patient Number: 12
+Patient Number: 5484
 ERROR: Patient record not found!
 
-<ENTER> to continue...y
+<ENTER> to continue...
 
 Appointment Management
 ==============================
@@ -508,8 +507,32 @@ Appointment Management
 ------------------------------
 0) Previous menu
 ------------------------------
-Selection: 
-1
+Selection: 4
+
+Patient Number: 1112
+Year        : 2024
+Month (1-12): 2
+Day (1-29)  : 29
+
+Name  : Archie Ashness
+Number: 01112
+Phone : (692)256-5724 (HOME)
+Are you sure you want to remove this appointment (y,n): y
+
+Appointment record has been removed!
+
+<ENTER> to continue...
+
+Appointment Management
+==============================
+1) VIEW   ALL Appointments
+2) VIEW   Appointments by DATE
+3) ADD    Appointment
+4) REMOVE Appointment
+------------------------------
+0) Previous menu
+------------------------------
+Selection: 1
 
 Clinic Appointments for the Date: <ALL>
 
@@ -519,7 +542,6 @@ Date       Time  Pat.# Name            Phone#
 2024-02-29 10:30 01080 Sandy Beach     (999)333-4444 (WORK)
 2024-02-29 11:00 01120 Wyatt Ashness   (692)256-5724 (HOME)
 2024-02-29 11:30 01088 Potato Yards    (583)678-8577 (HOME)
-2024-02-29 12:00 01112 Archie Ashness  (692)256-5724 (HOME)
 2024-02-29 12:30 01128 Bug Tevlin      (___)___-____ (TBD)
 2024-02-29 13:00 01040 Beans Maulin    (364)915-5831 (HOME)
 2024-02-29 13:30 01032 Pugsley Yanson  (304)800-5191 (CELL)
@@ -557,3 +579,6 @@ Selection: 0
 Are you sure you want to exit? (y|n): y
 
 Exiting system... Goodbye.
+
+
+Script done on Sun 03 Apr 2022 10:50:08 PM EDT

@@ -133,7 +133,7 @@ void menuMain(struct ClinicData* data)
             menuPatient(data->patients, data->maxPatient);
             break;
         case 2:
-            printf("<<< Feature not yet available >>>\n\n");
+            menuAppointment(data);
             break;
         }
     } while (selection);
