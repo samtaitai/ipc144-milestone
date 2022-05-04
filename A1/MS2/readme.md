@@ -1,19 +1,17 @@
-## Assignments (15% of term grade)
+# Assignments (25% of term grade)
 
 ## Assignment
 ```
 Milestone   Assessment  Worth Term Grade
 =========== =========== ===== ==========
-1           Code        16.6%       2.5%
-            Reflection  16.6%       2.5%
+1           Code        20.0%        5%
 ----------------------- ----- ----------
-2           Code        16.7%       2.5%
-            Reflection  16.7%       2.5%
+2           Code        20.0%        5%
 ----------------------- ----- ----------
-3           Code        16.7%       2.5%
-            Reflection  16.7%       2.5%
+3           Code        20.0%        5%
+            Reflection  40.0%       10%
 ======================= ===== ==========
-                 Total:  100%      15.0%
+                 Total:  100%      25.0%
 ```
 ****
 
@@ -26,7 +24,7 @@ YouTube Link: https://youtu.be/t0xbX_ltvbU
 
 Duration    : 20 minutes
 
-Content     : Python installation, PyAutoGui library dependency, sample usage (IPC144: A1MS2)
+Content     : Python installation, PyAutoGui library dependency, sample usage (Old IPC144: A1MS2)
 
 ## Step:2
 
