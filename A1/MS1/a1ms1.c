@@ -4,10 +4,10 @@
 /*
 *****************************************************************************
                         Assignment 1 - Milestone 1
-Full Name  :
-Student ID#:
-Email      :
-Section    :
+Full Name  : So Yon Lee 
+Student ID#: 179142211
+Email      : slee550@myseneca.ca
+Section    : NDD
 
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
@@ -80,6 +80,7 @@ int main(void)
 
     // C string testers
     test06_inputCString();
+    //clearInputBuffer(); //not works
     test07_inputCString();
     test08_inputCString();
 
@@ -225,7 +226,7 @@ void test05_inputCharOption(void)
 
 void test06_inputCString(void)
 {
-    char cstringValue[7] = { '\0' };
+    char cstringValue[7] = { '\0' }; 
 
     // Test explicit string length
     printf("TEST #6: - Instructions:\n"
@@ -245,7 +246,7 @@ void test06_inputCString(void)
 
 void test07_inputCString(void)
 {
-    char cstringValue[7] = { '\0' };
+    char cstringValue[7] = { '\0' }; 
 
     // Test range of string length (shortest allowed)
     printf("TEST #7: - Instructions:\n"
