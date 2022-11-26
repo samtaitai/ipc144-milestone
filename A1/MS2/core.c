@@ -1,11 +1,32 @@
+/*
+*****************************************************************************
+                        Assignment 1 - Milestone 2
+Full Name  : So Yon Lee	
+Student ID#: 179142211
+Email      : slee550@myseneca.ca
+Section    : NDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+*****************************************************************************
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
+#include <string.h>
 #include "core.h"
+//
+// Copy your work done from Milestone #1 (core.c) into this file
+// - Organize your functions in the same order as they are listed in the core.h file
+// - Also copy the commented "sections" to help with finding functions quickly!
+//
 
+//////////////////////////////////////
+// USER INTERFACE FUNCTIONS
+//////////////////////////////////////
 
-// As demonstrated in the course notes: 
-// https://intro2c.sdds.ca/D-Modularity/input-functions#clearing-the-buffer
 // Clear the standard input buffer
 void clearInputBuffer(void)
 {
@@ -24,7 +45,12 @@ void suspend(void)
 	putchar('\n');
 }
 
-//1.pass
+
+//////////////////////////////////////
+// USER INPUT FUNCTIONS
+//////////////////////////////////////
+
+//Validate if it's int
 int inputInt(void)
 {
 	int intInput = 0, result = 0, flag = 1;
@@ -48,7 +74,7 @@ int inputInt(void)
 	return result;
 };
 
-//2.pass
+//Validate if it's positive int
 int inputIntPositive(void)
 {
 	int intInput = 0, result = 0, flag = 1;
@@ -70,7 +96,7 @@ int inputIntPositive(void)
 	return result;
 };
 
-//3.pass
+//Validate if int is between min and max
 int inputIntRange(int min, int max)
 {
 	int result = 0, flag = 1;
@@ -85,15 +111,15 @@ int inputIntRange(int min, int max)
 		}
 		else
 		{
-			printf("ERROR! Value must be between %d and %d inclusive: ", MIN, MAX);
+			printf("ERROR! Value must be between %d and %d inclusive: ", min, max);
 		}
 	}
 
 	return result;
 };
 
-//4.pass
-char inputCharOption(const char	validChar[VALIDCHAR+1])
+//Validate char input
+char inputCharOption(const char	validChar[VALIDCHAR + 1])
 {
 	char inputChar = 0, result = 0;
 	int isIncluded = 0, flag = 1;
@@ -118,47 +144,36 @@ char inputCharOption(const char	validChar[VALIDCHAR+1])
 		}
 		else
 		{
-			printf("ERROR: Character must be one of [qwErty]: ");
+			printf("ERROR: Character must be one of [%s]: ", validChar);
 		}
 	}
-	
+
 
 	return result;
 
-}; 
+};
 
-
-//5.
+//Validate string input
 void inputCString(char givenStr[], int minLen, int maxLen)
 {
-	//clearInputBuffer(); // avoid skip 1st input -> cause ask \n twice in the 2nd test
-	while ((getchar()) == '\n') // fix above? erase previous remaining new line..? 
-	{
-	};
-
 	int lenCounter = 0;
 	int flag = 1;
-	int i;
 	char tempStr[512] = { 0 };
-	
+
 	while (flag)
 	{
 		lenCounter = 0;
 		scanf("%[^\n]s", tempStr); // get whitespace as well
 		clearInputBuffer(); // avoid eternal loop
 
-		
-		for (i = 0; tempStr[i] != 0; i++);
-		{
-			lenCounter = i;
-		}
+		lenCounter = strlen(tempStr);
 
 		// exact length finder
 		if (minLen == maxLen)
 		{
 			if (lenCounter == minLen && lenCounter == maxLen)
 			{
-				sprintf(givenStr, "%s", tempStr);	//without strcpy			
+				givenStr = strcpy(givenStr, tempStr);
 				flag = 0;
 			}
 			else
@@ -180,16 +195,16 @@ void inputCString(char givenStr[], int minLen, int maxLen)
 			}
 			else
 			{
-				sprintf(givenStr, "%s", tempStr);				
+				givenStr = strcpy(givenStr, tempStr);
 				flag = 0;
 			}
 		}
-		
+
 	}
 
 };
 
-//6.
+//Validate phone number 
 void displayFormattedPhone(const char phoneNum[])
 {
 	int counter = 0;
@@ -198,6 +213,7 @@ void displayFormattedPhone(const char phoneNum[])
 
 	if (phoneNum != NULL)
 	{
+		//every char is digit? 
 		for (i = 0; phoneNum[i] != '\0'; i++)
 		{
 			toInt = (int)phoneNum[i];
