@@ -1,0 +1,121 @@
+1. This milestone required you to create additional functions that were not specified or provided for you. 
+Briefly describe three functions you created and include the purpose and value those functions 
+contributed towards the application. Organize your answer for each function by first including the 
+function prototype (not the definition) followed by your explanation. (Minimum: 200 words)
+
+void searchPatientData(const struct Patient patient[], int max);
+purpose: this function search a patient record based on a patient number or his/her phone number. Based on which option a user choose, it calls sub fuctions; searchPatientByPatientNumber or searchPatientByPhoneNumber.  
+value: it serves for the second menu in the patient management system, which is 'search patients'. This function help a user to check if there's a wanted patient record. 
+
+void viewAppointmentSchedule(struct ClinicData* data);
+purpose: this function displays appointment records based on the specific date that a user passes. 
+value: It validates the user input based on conditions like how many days are in the particular month or whether the particular year is a leap year. Also, it displays records in ascending order with dates. It gives a user a list of appointment records of the given date. 
+
+void editPatient(struct Patient patient[], int max);
+purpose: this function gets a patient number by a user input, checks if a such patient record exists by calling findPatientIndexByPatientNum, if so, calls menuPatientEdit which displays the current patient record then let the user choose which information to edit.  
+value: It helps a user to edit the wrong information in which case of paitent names or patient's phone numbers. It calls releative sub functions to guide users passing the correct form of input.
+
+2. The "addAppointment" function must perform many operations. How many lines of code did you use 
+for this function? How many lines did you save by applying pattern recognition and the use of 
+functions? Identify all the sections of logic you were able to consolidate into useful functions to help 
+with readability and maintainability of the code. (Minimum: 200 words)
+
+It took me 112 lines of codes. 
+I found a similar pattern from both of addAppointment and addPatient functions. Both of them would validate if there's a free space for a new record. This is a snippet from addAppointment: 
+
+for (i = 0; i < maxAppoints; i++)
+        {
+            if (appoints[i].patient.patientNumber != 0) // data->appointments[i].patient.patientNumber != 0
+            {
+                if (appoints[i].date.year == year &&
+                    appoints[i].date.month == month &&
+                    appoints[i].date.day == day &&
+                    appoints[i].time.hour == hour &&
+                    appoints[i].time.min == min)
+                {
+                    isFull = 1;
+                }
+            }
+        }
+
+If there's a free space of a new record, again both of them assign a new record to a free space with a smallest index possible: 
+
+ for (i = 0; i < maxAppoints && appoints[i].patient.patientNumber != 0; i++)
+                {
+                    freeIdx = i + 1;
+                }
+                appoints[freeIdx].patient.patientNumber = patientNum;
+                appoints[freeIdx].date.year = year;
+                appoints[freeIdx].date.month = month;
+                appoints[freeIdx].date.day = day;
+                appoints[freeIdx].time.hour = hour;
+                appoints[freeIdx].time.min = min; 
+
+'To find if there's a available slot then find the index number which is the smallest possible' part could be another individual function to improve its readability and maintainablity. If I separated this part into a whole new function, it would save me 20 lines of codes give or take. 
+
+However, in this scenario of milestone 3, this veterinary clinic books a new appointment only between 10 to 14 in 30 min interval. A user request should be validated based on the condition and it's unique condition for addAppointment, hence it cannot be merged or separated into another individual module. 
+
+3. This milestone demanded a concerted effort in time management to insure you could complete the 
+work on-time. Breakdown how you spent your week of development and include each function/section 
+of logic you worked on describing the overall success/challenges you had along the way. (Minimum: 200 
+words)
+
+Over the course of this course, I found as a workshop(or milestone) is getting bigger and complex, the importance of comprehensive reading of each instruction is more and more imperative. If I set the wrong course at the beginning, it looks trivial at the early stage of the work but eventually it takes me far away from where I should be. Since I started to work on each milestone project, I could spend 3 to 4 hours per day of focus time on it.  
+
+In the milestone 1, inputCString function was the biggest challenge. it took me a great effort to meet requirements from the instruction.
+
+In the milestone 2, making myself familiar with usage of string library took me a while. I also found challening that those syntax of array pointer accessing its members and structure array pointer accessing its members becaue there are a couple of identical ways to deliver.    
+
+The most tricky part that I found in the milestone 3, was sorting current appointment records in ascening order. It was overwhelming at the beinning but it feels good to see it's running. 
+I chose the selection sorting for the task. But I had to create a timestamp as a benchmark value: 
+
+I have to make a timestamp as a benchmark value. 
+
+  // generate timestamp array 
+    for (i = 0; i < data->maxAppointments && data->appointments[i].patient.patientNumber != 0; i++)
+    {
+        timestamp[i] = data->appointments[i].date.year * 365 * 24 * 60 +
+            data->appointments[i].date.month * 12 * 24 * 60 +
+            data->appointments[i].date.day * 24 * 60 +
+            data->appointments[i].time.hour * 60 +
+            data->appointments[i].time.min;
+
+        dataCount += 1;
+    }
+
+In the sorting function, it also swaps appointment records as well as its timestamp.
+
+void selectionSort(struct Appointment* appoints, int data[], int itemCount)
+{
+    int i, j, minIdx = 0;
+    int temp = 0;
+    struct Appointment tempAppoint = {0};
+
+    for (i = 0; i < itemCount; i++)
+    {
+        minIdx = i;
+
+        //printf("data[%d] and data[%d]: %d %d\n", i, minIdx, data[i], data[minIdx]); // can't be here 
+
+        for (j = i + 1; j < itemCount; j++)
+        {
+            //printf("data[%d] and data[%d]: %d %d\n", j, minIdx, data[j], data[minIdx]); // can't get here 
+
+            if (data[j] < data[minIdx]) // error accessing violation 
+            {
+                minIdx = j;
+            }
+        }
+
+        if (minIdx != i)
+        {
+            temp = data[i]; // timestamp swap (necessary??) 
+            data[i] = data[minIdx];
+            data[minIdx] = temp;
+
+            tempAppoint = appoints[i]; // appointment struct swap 
+            appoints[i] = appoints[minIdx];
+            appoints[minIdx] = tempAppoint;
+        }
+    }
+}

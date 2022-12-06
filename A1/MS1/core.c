@@ -33,6 +33,7 @@ int inputInt(void)
 	while (flag)
 	{
 		scanf("%d%c", &intInput, &newLine);
+		clearInputBuffer();
 		if (newLine == 10) //because new line ascii code is 10 
 		{
 			result = intInput;
@@ -56,6 +57,7 @@ int inputIntPositive(void)
 	while (flag)
 	{
 		scanf("%d", &intInput);
+		clearInputBuffer();
 		if (intInput > 0)
 		{
 			result = intInput;
@@ -102,6 +104,7 @@ char inputCharOption(const char	validChar[VALIDCHAR+1])
 	while (flag)
 	{
 		scanf(" %c", &inputChar);
+		clearInputBuffer();
 
 		for (i = 0; i < VALIDCHAR + 1; i++)
 		{
@@ -131,61 +134,116 @@ char inputCharOption(const char	validChar[VALIDCHAR+1])
 //5.
 void inputCString(char givenStr[], int minLen, int maxLen)
 {
-	//clearInputBuffer(); // avoid skip 1st input -> cause ask \n twice in the 2nd test
-	while ((getchar()) == '\n') // fix above? erase previous remaining new line..? 
+	int keepOn = 1;
+	int i = 0;
+
+	while (keepOn)
 	{
-	};
+		givenStr[i] = getchar();
 
-	int lenCounter = 0;
-	int flag = 1;
-	int i;
-	char tempStr[512] = { 0 };
-	
-	while (flag)
-	{
-		lenCounter = 0;
-		scanf("%[^\n]s", tempStr); // get whitespace as well
-		clearInputBuffer(); // avoid eternal loop
-
-		
-		for (i = 0; tempStr[i] != 0; i++);
-		{
-			lenCounter = i;
-		}
-
-		// exact length finder
 		if (minLen == maxLen)
 		{
-			if (lenCounter == minLen && lenCounter == maxLen)
+			if (i <= maxLen && givenStr[i] == '\n')
 			{
-				sprintf(givenStr, "%s", tempStr);	//without strcpy			
-				flag = 0;
+				if (i != minLen || i != maxLen)
+				{
+					printf("string length must be exactly %d chracters\n", minLen);
+				}
+				else
+				{
+					keepOn = 0;
+					givenStr[i] = '\0';
+				}
 			}
-			else
+			else if (i > maxLen)
 			{
-				printf("ERROR: String length must be exactly 6 chars: ");
-
+				givenStr[maxLen + 1] = '\0';
+				//keepOn = 0;
+				printf("Error, must be less or equal to max characters\n");
+			}
+			else if (i < minLen && givenStr[i] == '\0')
+			{
+				printf("Error, must be equal to or greater than min characters\n");
 			}
 		}
 		else
 		{
-			if (lenCounter > maxLen)
+			if (i > maxLen)
 			{
-				printf("ERROR: String length must be no more than 6 chars: ");
+				givenStr[i] = '\0';
+				//keepOn = 0;
+				printf("Error, must be less or equal to max characters\n");
 			}
-			else if (lenCounter < minLen)
+			else if (i < minLen && givenStr[i] == '\0')
 			{
-				printf("ERROR: String length must be between %d and %d chars: ", minLen, maxLen);
-
+				printf("Error, must be equal to or greater than min characters\n");
 			}
-			else
-			{
-				sprintf(givenStr, "%s", tempStr);				
-				flag = 0;
-			}
+			i++;
+			//clearInputBuffer();
 		}
 		
+
 	}
+	
+	
+	
+	// ### below is old ### 
+
+	////clearInputBuffer(); // avoid skip 1st input -> cause ask \n twice in the 2nd test
+	//while ((getchar()) == '\n') // fix above? erase previous remaining new line..? 
+	//{
+	//};
+
+	//int lenCounter = 0;
+	//int flag = 1;
+	//int i;
+	//char tempStr[512] = { 0 };
+	//
+	//while (flag)
+	//{
+	//	lenCounter = 0;
+	//	scanf("%[^\n]s", tempStr); // get whitespace as well
+	//	clearInputBuffer(); // avoid eternal loop
+
+	//	
+	//	for (i = 0; tempStr[i] != 0; i++);
+	//	{
+	//		lenCounter = i;
+	//	}
+
+	//	// exact length finder
+	//	if (minLen == maxLen)
+	//	{
+	//		if (lenCounter == minLen && lenCounter == maxLen)
+	//		{
+	//			sprintf(givenStr, "%s", tempStr);	//without strcpy			
+	//			flag = 0;
+	//		}
+	//		else
+	//		{
+	//			printf("ERROR: String length must be exactly 6 chars: ");
+
+	//		}
+	//	}
+	//	else
+	//	{
+	//		if (lenCounter > maxLen)
+	//		{
+	//			printf("ERROR: String length must be no more than 6 chars: ");
+	//		}
+	//		else if (lenCounter < minLen)
+	//		{
+	//			printf("ERROR: String length must be between %d and %d chars: ", minLen, maxLen);
+
+	//		}
+	//		else
+	//		{
+	//			sprintf(givenStr, "%s", tempStr);				
+	//			flag = 0;
+	//		}
+	//	}
+	//	
+	//}
 
 };
 
